@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>EduTrack - Student Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <div class="overlay"></div>
+    <aside class="sidebar">
+      <div class="sidebar-brand"><h1>🎓 EduTrack</h1><p>Student Portal</p></div>
+      <nav class="sidebar-nav">
+        <a href="student.html" class="sidebar-link active"><span>📊</span><span>My Dashboard</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <p class="label">Logged in as</p><p class="name">Student</p>
+        <a href="index.html" class="signout">← Sign Out</a>
+      </div>
+    </aside>
+    <div class="main-area">
+      <header class="top-navbar">
+        <button class="burger" onclick="document.querySelector('.sidebar').classList.toggle('open');document.querySelector('.overlay').classList.toggle('show')">☰</button>
+        <span style="font-size:0.875rem;color:var(--muted)">Academic Year 2024-25</span>
+        <div class="right"><span>🔔</span><div class="avatar">S</div></div>
+      </header>
+      <main class="page-content">
+        <div style="margin-bottom:24px" id="welcomeHeader"></div>
+        <div class="stats-grid" id="statsGrid"></div>
+        <div class="table-container">
+          <div class="table-header"><h3>My Subject Marks</h3></div>
+          <div style="overflow-x:auto"><table><thead><tr>
+            <th>Subject</th><th>Code</th><th class="center">Marks</th><th class="center">Total</th><th class="center">Grade</th>
+          </tr></thead><tbody id="marksBody"></tbody></table></div>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="data.js"></script>
+  <script>
+    const s = students[0];
+    const avg = getAvgMarks(s), grade = getGrade(avg);
+    document.getElementById('welcomeHeader').innerHTML = `<h2 class="page-title">Welcome, ${s.name}</h2><p class="page-subtitle">${s.rollNo} · ${s.course}</p>`;
+    const stats = [
+      {label:"Attendance",value:s.attendance+"%",icon:"📋",g:"gradient-success"},
+      {label:"Average Marks",value:avg,icon:"📝",g:"gradient-primary"},
+      {label:"Grade",value:grade,icon:"🏆",g:"gradient-warning"},
+      {label:"Subjects",value:s.marks.length,icon:"📚",g:"gradient-info"}
+    ];
+    document.getElementById('statsGrid').innerHTML = stats.map(st=>`
+      <div class="stat-card"><div class="stat-icon ${st.g}">${st.icon}</div>
+      <div><p class="stat-value">${st.value}</p><p class="stat-label">${st.label}</p></div></div>`).join('');
+    document.getElementById('marksBody').innerHTML = s.marks.map(m=>{
+      const g=getGrade(m.marks), cls=m.marks>=80?'badge-success':m.marks>=60?'badge-info':'badge-danger';
+      return `<tr><td class="medium">${m.subject}</td><td class="mono text-muted">${m.code}</td>
+      <td class="center bold">${m.marks}</td><td class="center text-muted">${m.total}</td>
+      <td class="center"><span class="badge badge-lg ${cls}">${g}</span></td></tr>`;
+    }).join('');
+  </script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>EduTrack - Add Student</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <div class="overlay"></div>
+    <aside class="sidebar">
+      <div class="sidebar-brand"><h1>🎓 EduTrack</h1><p>Admin Panel</p></div>
+      <nav class="sidebar-nav">
+        <a href="dashboard.html" class="sidebar-link"><span>📊</span><span>Dashboard</span></a>
+        <a href="add.html" class="sidebar-link active"><span>➕</span><span>Add Student</span></a>
+        <a href="attendance.html" class="sidebar-link"><span>📋</span><span>Attendance</span></a>
+        <a href="marks.html" class="sidebar-link"><span>✏️</span><span>Marks Entry</span></a>
+        <a href="report.html" class="sidebar-link"><span>📈</span><span>Reports</span></a>
+      </nav>
+      <div class="sidebar-footer">
+        <p class="label">Logged in as</p><p class="name">Dr. Admin</p>
+        <a href="index.html" class="signout">← Sign Out</a>
+      </div>
+    </aside>
+    <div class="main-area">
+      <header class="top-navbar">
+        <button class="burger" onclick="document.querySelector('.sidebar').classList.toggle('open');document.querySelector('.overlay').classList.toggle('show')">☰</button>
+        <span style="font-size:0.875rem;color:var(--muted)">Academic Year 2024-25</span>
+        <div class="right"><span>🔔</span><div class="avatar">A</div></div>
+      </header>
+      <main class="page-content">
+        <div style="margin-bottom:24px"><h2 class="page-title">Add New Student</h2><p class="page-subtitle">Enter student details below</p></div>
+        <div class="form-card">
+          <form action="/api/students" method="POST">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="student_name">Full Name</label>
+                <input type="text" id="student_name" name="student_name" class="input-field" placeholder="Enter full name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="roll_no">Roll Number</label>
+                <input type="text" id="roll_no" name="roll_no" class="input-field" placeholder="e.g. CS2024011" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="input-field" placeholder="student@college.edu" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="course">Course</label>
+                <select id="course" name="course" class="input-field" required>
+                  <option value="">Select Course</option>
+                  <option>Computer Science</option>
+                  <option>Information Technology</option>
+                  <option>Electronics</option>
+                </select>
+              </div>
+              <div class="form-group full" style="margin-top:8px">
+                <button type="submit" class="btn-primary">➕ Add Student</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+  <script src="data.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>EduTrack - Login</title>
+  <meta name="description" content="Student Attendance and Grade Management System">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-card">
+      <h1>🎓 EduTrack</h1>
+      <p class="subtitle">Student Management System</p>
+      <form action="/api/login" method="POST">
+        <div class="role-grid">
+          <button type="button" class="role-btn active" onclick="selectRole('admin',this)">
+            <div class="icon">🔑</div><div class="label">Admin</div><div class="desc">Faculty access</div>
+          </button>
+          <button type="button" class="role-btn" onclick="selectRole('student',this)">
+            <div class="icon">🎓</div><div class="label">Student</div><div class="desc">View grades</div>
+          </button>
+        </div>
+        <input type="hidden" name="role" id="roleInput" value="admin">
+        <div class="form-group">
+          <label class="form-label">Email / Username</label>
+          <input type="text" name="username" class="input-field" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group" style="margin-bottom:24px">
+          <label class="form-label">Password</label>
+          <input type="password" name="password" class="input-field" placeholder="Enter password" required>
+        </div>
+        <button type="button" class="btn-primary" style="width:100%" onclick="doLogin()">Sign In →</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    let selectedRole = 'admin';
+    function selectRole(role, el) {
+      selectedRole = role;
+      document.getElementById('roleInput').value = role;
+      document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+    }
+    function doLogin() {
+      window.location.href = selectedRole === 'admin' ? 'dashboard.html' : 'student.html';
+    }
+  </script>
+</body>
+</html>
